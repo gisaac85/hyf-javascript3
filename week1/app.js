@@ -27,6 +27,8 @@ function populateSelect() {
             const ul = createAndAppend('ul', root);
             ul.id = 'ulContr';
             const count = createAndAppend('p', ul);
+            count.id = 'count';
+
             const contrList = createAndAppend('li', ul);
 
             const repoName = createAndAppend('p', root);
@@ -53,6 +55,7 @@ function populateSelect() {
             ele.addEventListener('change', function () {
                 contrList.innerHTML = "";
                 count.innerHTML = "";
+
                 const index = ele.selectedIndex - 1;
                 if (index < 0) {
                     repoName.innerHTML = 'Repo Name: ';
@@ -64,10 +67,10 @@ function populateSelect() {
 
                 } else {
 
-                    repoName.innerHTML = 'Repo Name: ' + "<a href=" + repo[index].html_url + " target='_blank'>" + repo[index].name + "</a>";
-                    desc.innerHTML = 'Description: ' + '<br>' + repo[index].description;
-                    forks.innerHTML = 'Forks: ' + '<br>' + repo[index].forks;
-                    updated.innerHTML = 'Updated: ' + '<br>' + repo[index].updated_at;
+                    repoName.innerHTML = '<span>Repo Name: </span>' + "<a href=" + repo[index].html_url + " target='_blank'>" + repo[index].name + "</a>";
+                    desc.innerHTML = '<span>Description: </span>' + '<br>' + repo[index].description;
+                    forks.innerHTML = '<span>Forks: </span>' + '<br>' + repo[index].forks;
+                    updated.innerHTML = '<span>Updated: </span>' + '<br>' + repo[index].updated_at;
                     // contr.innerHTML = 'contributors URL: ' + repo[index].contributors_url;
 
                     contrAdres = repo[index].contributors_url;
@@ -86,9 +89,9 @@ function populateSelect() {
 
                             for (const kk in contrRepo) {
 
-                                contrList.innerHTML += "Contributors Name: " + contrRepo[kk].login + '<br>';
-                                contrList.innerHTML += "Contributions: " + contrRepo[kk].contributions;
-                                contrList.innerHTML += "<img src=" + contrRepo[kk].avatar_url + ">";
+                                contrList.innerHTML += "<img src=" + contrRepo[kk].avatar_url + ">" + '<span>Contributor Name: </span>   ' + contrRepo[kk].login + ' <span>Contributions: </span> ' + contrRepo[kk].contributions + '<br>';
+                                // contrList.innerHTML += "Contributions: " + contrRepo[kk].contributions;
+                                //contrList.innerHTML += "<img src=" + contrRepo[kk].avatar_url + ">";
 
                             }
 
