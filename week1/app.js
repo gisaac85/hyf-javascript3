@@ -95,7 +95,7 @@ function populateSelect() {
 
                             }
 
-                            count.innerHTML = "Contributors Number: " + contrRepo.length;
+                            count.innerHTML = "Number of Contributors: " + contrRepo.length;
                         }
 
                     };

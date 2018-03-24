@@ -77,3 +77,49 @@ span {
 #count {
     display: grid;
 }
+
+/*Animation*/
+
+img:hover {
+    animation: pop-in 1s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(2, 3, 4);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    cursor: zoom-out;
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(3);
+    }
+}
+
+/*Mobile*/
+
+@media(max-width:375px) {
+    span {
+        font-size: 10px;
+        text-align: center;
+    }
+    p {
+        font-size: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+    li {
+        font-size: 10px;
+        padding: 10px;
+    }
+    body {
+        margin-left: auto;
+        padding: auto;
+        width: 360px;
+        height: 640px;
+        max-width: auto;
+    }
+}
