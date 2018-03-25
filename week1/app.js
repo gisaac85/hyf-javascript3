@@ -99,7 +99,7 @@ function populateSelect() {
                         }
 
                     };
-                    xhr1.open(method, url, true);
+                    xhr1.open(method, url, true); // true is mean Asy
                     xhr1.send();
 
                 }
