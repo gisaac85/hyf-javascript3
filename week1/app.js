@@ -121,3 +121,13 @@ function createAndAppend(tagName, parent) {
     parent.appendChild(elem);
     return elem;
 }
+//promise.all >> return all promises
+//const promise1 = somePromise();  >> assign promise to variable
+//promise is an object
+//.then  >> all things is ok
+// .catch >> promise has error
+
+// async function x() >> async function 
+// await somePromise >> wait promise to be ok .
+// by using async-await we delete .then() method.
+// we can use source in chrome inspect to see breakpoints runtime

@@ -26,7 +26,7 @@
         "prefer-const": "warn",
         "no-multiple-empty-lines": "warn",
         "eol-last": [
-            "error",
+            "warn",
             "always"
         ],
         "no-console": "off",
