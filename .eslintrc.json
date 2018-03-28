@@ -25,10 +25,6 @@
         "no-var": "warn",
         "prefer-const": "warn",
         "no-multiple-empty-lines": "warn",
-        "eol-last": [
-            "warn",
-            "always"
-        ],
         "no-console": "off",
         "camelcase": "warn",
         "eqeqeq": [
