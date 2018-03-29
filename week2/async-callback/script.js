@@ -70,7 +70,8 @@
         });
 
         const informationDiv = createAndAppend('div', container, {
-            class: 'infoDiv'
+            class: 'infoDiv',
+            id: 'infoDiv'
         });
 
         createAndAppend('ul', informationDiv, {
@@ -132,6 +133,8 @@
                 ulInfo.innerHTML = '';
                 const ulImg = document.getElementById('imgUl');
                 ulImg.innerHTML = '';
+
+
             }
 
         });
