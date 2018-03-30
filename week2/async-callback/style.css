@@ -180,6 +180,7 @@ img:hover {
         height: 100px;
         text-align: center;
         margin: auto;
+        padding: 0px;
     }
     .imgDiv {
         display: inline-block;
@@ -227,9 +228,9 @@ img:hover {
         margin-left: 1px;
     }
     #info {
-        display: inline-block;
+        float: left;
         margin: auto;
-        word-wrap: break-word;
+        width: 90%;
     }
     .infoDiv {
         width: 50%;
