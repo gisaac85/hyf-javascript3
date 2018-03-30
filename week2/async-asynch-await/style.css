@@ -156,7 +156,6 @@ img:hover {
 @media(max-width:375px) {
     li {
         font-size: 10px;
-        white-space: nowrap;
     }
     html,
     body {
@@ -166,6 +165,19 @@ img:hover {
     label {
         font-size: 14px;
         margin-left: 10px;
+    }
+    #header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid white;
+        background-color: slateblue;
+        border-radius: 50px;
+        width: 100%;
+        height: 100px;
+        text-align: center;
+        margin: auto;
     }
     .imgDiv {
         display: inline-block;
@@ -185,7 +197,7 @@ img:hover {
     #contributionsCounter {
         float: right;
         display: block;
-        width: 20px;
+        width: 15px;
         color: darkblue;
         font-weight: bold;
         background-color: yellow;
@@ -199,24 +211,29 @@ img:hover {
         list-style: none;
         line-height: 10px;
         padding-left: 1px;
+        display: flex;
+        flex-direction: column;
     }
     #contributorName {
         display: inline-block;
         position: relative;
         bottom: 35px;
+        margin-right: 10px;
     }
     .element {
         display: inline-block;
-        margin-left: 5px;
+        margin-left: 1px;
     }
     #info {
-        display: flex;
-        text-align: center;
-        align-content: center;
-        flex-direction: column;
-        padding: 0px;
-        margin-left: 20%;
-        margin-right: 20%;
+        display: inline-block;
+        margin: auto;
+        word-wrap: break-word;
+    }
+    .infoDiv {
+        width: 50%;
+        line-height: 25px;
+        font-size: 17px;
+        font-family: Bitter;
     }
     select,
     option {
