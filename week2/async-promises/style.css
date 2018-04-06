@@ -65,6 +65,7 @@ select {
 .container {
     margin: auto;
     padding: 10px;
+    box-shadow: 0 6px 8px 0 rgb(59, 58, 57);
 }
 
 .infoDiv {
@@ -86,7 +87,6 @@ select {
 }
 
 #imgUl {
-    box-shadow: 0 6px 8px 0 rgb(59, 58, 57);
     list-style: none;
     line-height: 30px;
     background-color: lightgrey;
