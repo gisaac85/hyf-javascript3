@@ -17,7 +17,7 @@
                     if (xhr.status < 400) {
                         resolve(xhr.response);
                     } else {
-                        reject(new Error(xhr.statusText));
+                        reject(new Error('Error: ' + xhr.status + ' ' + xhr.statusText));
                     }
                 }
             };
@@ -94,7 +94,7 @@
 
             })
             .catch(err => {
-                console.log(err.message);
+                container.innerHTML = err.message;
             });
 
     }
@@ -174,7 +174,7 @@
 
             })
             .catch(err => {
-                console.log(err.message);
+                document.getElementById('container').innerHTML = err.message;
             });
 
 
@@ -224,10 +224,8 @@
 
                     })
                     .catch(err => {
-                        console.log(err.message);
+                        document.getElementById('container').innerHTML = err.message;
                     });
-
-
 
             });
     }

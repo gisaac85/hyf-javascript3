@@ -16,7 +16,7 @@
                 if (xhr.status < 400) {
                     cb(null, xhr.response);
                 } else {
-                    cb(new Error(xhr.statusText));
+                    cb(new Error('Error: ' + xhr.status + ' ' + xhr.statusText));
                 }
             }
         };
@@ -66,7 +66,8 @@
         });
 
         const container = createAndAppend('div', root, {
-            class: 'container'
+            class: 'container',
+            id: 'container'
         });
 
         const informationDiv = createAndAppend('div', container, {
@@ -88,7 +89,8 @@
 
         fetchJSON(url, function (error, data) {
             if (error !== null) {
-                error.log("There is Error, Try Again!");
+                container.innerHTML = error.message;
+
             } else {
                 manipulateSelect(data);
             }
@@ -152,7 +154,7 @@
 
         fetchJSON(data, (error, rep) => {
             if (error !== null) {
-                error.log("There is Error, Try Again!");
+                document.getElementById('container').innerHTML = error.message;
             } else {
 
                 createAndAppend('li', ulInfo, {
@@ -193,14 +195,14 @@
         fetchJSON(data, (error, rep) => {
 
             if (error !== null) {
-                error.log("There is Error, Try Again!");
+                document.getElementById('container').innerHTML = error.message;
             } else {
                 const url1 = rep.contributors_url;
 
                 fetchJSON(url1, (error, contributors) => {
 
                     if (error !== null) {
-                        error.log("There is Error, Try Again!");
+                        document.getElementById('container').innerHTML = error.message;
 
                     } else {
 
