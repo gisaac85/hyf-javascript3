@@ -192,8 +192,8 @@ img:hover {
         font-family: Bitter;
     }
     img {
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         margin: 1px;
         border-radius: 50%;
     }
@@ -212,7 +212,7 @@ img:hover {
     #imgUl {
         box-shadow: 0 2px 8px 0 rgb(59, 58, 57);
         list-style: none;
-        line-height: 10px;
+        line-height: 30px;
         padding-left: 1px;
         display: flex;
         flex-direction: column;
@@ -220,16 +220,24 @@ img:hover {
     #contributorName {
         display: inline-block;
         position: relative;
-        bottom: 35px;
+        bottom: 40px;
         margin-right: 10px;
+        color: green;
     }
     .element {
         display: inline-block;
         margin-left: 1px;
     }
-    #info {
-        float: left;
+    .container {
         margin: auto;
+        padding: 5px;
+        box-shadow: 0 6px 8px 0 rgb(59, 58, 57);
+    }
+    #info {
+        margin-left: 50%;
+        margin-right: 50%;
+        text-align: center;
+        position: relative;
         width: 90%;
     }
     .infoDiv {
