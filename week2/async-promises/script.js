@@ -68,7 +68,8 @@
         });
 
         const container = createAndAppend('div', root, {
-            class: 'container'
+            class: 'container',
+            id: 'container'
         });
 
         const informationDiv = createAndAppend('div', container, {
@@ -161,15 +162,15 @@
                 });
 
                 createAndAppend('li', ulInfo, {
-                    html: 'Description : ' + data.description
+                    html: 'Description : ' + '<span>' + data.description + '</span>'
                 });
 
                 createAndAppend('li', ulInfo, {
-                    html: 'Forks : ' + data.forks
+                    html: 'Forks : ' + '<span>' + data.forks + '</span>'
                 });
 
                 createAndAppend('li', ulInfo, {
-                    html: 'Updated : ' + data.updated_at
+                    html: 'Updated : ' + '<span>' + data.updated_at + '</span>'
                 });
 
             })

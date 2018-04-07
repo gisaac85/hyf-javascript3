@@ -161,15 +161,15 @@
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Description : ' + data1.description
+                html: 'Description : ' + '<span>' + data1.description + '</span>'
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Forks : ' + data1.forks
+                html: 'Forks : ' + '<span>' + data1.forks + '</span>'
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Updated : ' + data1.updated_at
+                html: 'Updated : ' + '<span>' + data1.updated_at + '</span>'
             });
 
         } catch (err) {

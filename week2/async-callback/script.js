@@ -163,15 +163,15 @@
                 });
 
                 createAndAppend('li', ulInfo, {
-                    html: 'Description : ' + rep.description
+                    html: 'Description : ' + '<span>' + rep.description + '</span>'
                 });
 
                 createAndAppend('li', ulInfo, {
-                    html: 'Forks : ' + rep.forks
+                    html: 'Forks : ' + '<span>' + rep.forks + '</span>'
                 });
 
                 createAndAppend('li', ulInfo, {
-                    html: 'Updated : ' + rep.updated_at
+                    html: 'Updated : ' + '<span>' + rep.updated_at + '</span>'
                 });
 
 
@@ -190,7 +190,6 @@
         const ulImg = document.getElementById('imgUl');
 
         ulImg.innerHTML = '';
-
 
         fetchJSON(data, (error, rep) => {
 
@@ -225,13 +224,10 @@
                                 html: contributor.contributions,
                                 id: 'contributionsCounter'
                             });
-
                         }
                     }
                 });
             }
         });
-
     }
-
 }

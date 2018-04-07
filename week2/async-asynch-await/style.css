@@ -76,6 +76,10 @@ select {
     font-family: Bitter;
 }
 
+span {
+    color: green;
+}
+
 .imgDiv {
     float: right;
     width: 40%;
@@ -114,6 +118,7 @@ img {
     display: inline-block;
     position: relative;
     bottom: 52px;
+    color: indigo;
 }
 
 #contributionsCounter {
