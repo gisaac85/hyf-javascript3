@@ -1,6 +1,6 @@
 'use strict'; {
 
-    window.onload = main();
+    window.onload = main;
 
     /**
      * Fetches JSON data asynchronously
@@ -41,6 +41,28 @@
             }
         });
         return elem;
+    }
+
+    /**
+     * sort <select> options alphabetically
+     */
+    function sortList(ele) {
+        const clTexts = new Array();
+        for (let i = 1; i < ele.length; i++) {
+            clTexts[i - 1] =
+                ele.options[i].text.toUpperCase() + "," +
+                ele.options[i].text + "," +
+                ele.options[i].value;
+        }
+
+        clTexts.sort();
+
+        for (let i = 1; i < ele.length; i++) {
+            const parts = clTexts[i - 1].split(',');
+
+            ele.options[i].text = parts[1];
+            ele.options[i].value = parts[2];
+        }
     }
 
     /**
@@ -116,13 +138,15 @@
             label: '--------------------------------'
         });
 
-
         data.forEach(repo => {
             createAndAppend('option', select, {
                 html: repo.name,
                 value: repo.url
             });
+
         });
+
+        sortList(select);
 
         select.addEventListener('change', function (event) {
 

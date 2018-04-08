@@ -1,10 +1,9 @@
 'use strict'; {
-    window.onload = main();
+    window.onload = main;
 
     /**
      * Fetches JSON data asynchronously
      * @param {string} url The url to fetch
-     * @param {Function} cb A node style callback to receive the results
      */
     function fetchJSON(url) {
         return new Promise((resolve, reject) => {
@@ -42,6 +41,28 @@
             }
         });
         return elem;
+    }
+
+    /**
+     * sort <select> options alphabetically
+     */
+    function sortList(ele) {
+        const clTexts = new Array();
+        for (let i = 1; i < ele.length; i++) {
+            clTexts[i - 1] =
+                ele.options[i].text.toUpperCase() + "," +
+                ele.options[i].text + "," +
+                ele.options[i].value;
+        }
+
+        clTexts.sort();
+
+        for (let i = 1; i < ele.length; i++) {
+            const parts = clTexts[i - 1].split(',');
+
+            ele.options[i].text = parts[1];
+            ele.options[i].value = parts[2];
+        }
     }
 
     /**
@@ -123,7 +144,7 @@
                 value: repo.url
             });
         });
-
+        sortList(select);
         select.addEventListener('change', function (event) {
 
             const index = select.selectedIndex;
