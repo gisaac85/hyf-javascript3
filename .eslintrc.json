@@ -1,19 +1,24 @@
 {
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jasmine": true
     },
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "experimentalObjectRestSpread": true
         },
         "sourceType": "module"
     },
     "extends": [
-        "eslint:recommended"
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
+    "globals": {},
     "rules": {
         "no-const-assign": "warn",
         "no-this-before-super": "warn",
@@ -22,21 +27,20 @@
         "no-unused-vars": "warn",
         "constructor-super": "warn",
         "valid-typeof": "warn",
-        "no-var": "warn",
-        "prefer-const": "warn",
-        "no-multiple-empty-lines": "warn",
         "no-console": "off",
-        "camelcase": "warn",
-        "eqeqeq": [
-            "error",
-            "always",
-            {
-                "null": "ignore"
-            }
-        ],
         "semi": [
             "warn",
+            "never"
+        ],
+        "no-var": "warn",
+        "prefer-const": "warn",
+        "eqeqeq": [
+            "error",
             "always"
-        ]
-    }
+        ],
+        "react/prop-types": "warn"
+    },
+    "plugins": [
+        "react"
+    ]
 }
