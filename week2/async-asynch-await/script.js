@@ -144,7 +144,9 @@
                 value: repo.url
             });
         });
+
         sortList(select);
+
         select.addEventListener('change', function (event) {
 
             const index = select.selectedIndex;
