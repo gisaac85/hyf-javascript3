@@ -147,6 +147,12 @@
         });
 
         sortList(select);
+        data.forEach(repo => {
+            createAndAppend('option', select, {
+                html: repo.name,
+                value: repo.url
+            });
+        });
 
         select.addEventListener('change', function (event) {
 
@@ -157,6 +163,21 @@
             } else {
                 const ulInfo = document.getElementById('info');
                 ulInfo.innerHTML = '';
+                const ulImg = document.getElementById('imgUl');
+                ulImg.innerHTML = '';
+
+
+            }
+
+        });
+
+        document.querySelectorAll('li').addEventListener('click', function (event) {
+            const index = select.selectedIndex;
+            if (index > 0) {
+
+                getContributorInformation(event.target.value);
+            } else {
+
                 const ulImg = document.getElementById('imgUl');
                 ulImg.innerHTML = '';
 
@@ -232,7 +253,8 @@
                         for (const contributor of contributors) {
 
                             const el = createAndAppend('li', ulImg, {
-                                class: 'element'
+                                class: 'element',
+                                id: 'element'
                             });
 
                             createAndAppend('img', el, {

@@ -109,10 +109,10 @@
                 id: 'imgUl'
             });
 
-            const d = await fetchJSON(url);
+            const data = await fetchJSON(url);
 
 
-            manipulateSelect(d);
+            manipulateSelect(data);
 
         } catch (err) {
             document.getElementById('container').innerHTML = err.message;
@@ -176,23 +176,23 @@
 
             ulInfo.innerHTML = '';
 
-            const data1 = await fetchJSON(data);
+            const repo = await fetchJSON(data);
 
             createAndAppend('li', ulInfo, {
-                html: 'Name : ' + "<a href=" + data1.html_url + ' target="_blank" >' + data1.name + "</a>",
+                html: 'Name : ' + "<a href=" + repo.html_url + ' target="_blank" >' + repo.name + "</a>",
 
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Description : ' + '<span>' + data1.description + '</span>'
+                html: 'Description : ' + '<span>' + repo.description + '</span>'
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Forks : ' + '<span>' + data1.forks + '</span>'
+                html: 'Forks : ' + '<span>' + repo.forks + '</span>'
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Updated : ' + '<span>' + data1.updated_at + '</span>'
+                html: 'Updated : ' + '<span>' + repo.updated_at + '</span>'
             });
 
         } catch (err) {
@@ -205,19 +205,19 @@
      * Return Information of Contributor
      * @param {object} DOM element 
      */
-    async function getContributorInformation(data) {
+    async function getContributorInformation(url) {
         try {
             const ulImg = document.getElementById('imgUl');
 
             ulImg.innerHTML = '';
 
-            const d1 = await fetchJSON(data);
+            const repo = await fetchJSON(url);
 
-            const url1 = d1.contributors_url;
+            const contrUrl = repo.contributors_url;
 
-            const d2 = await fetchJSON(url1);
+            const contributors = await fetchJSON(contrUrl);
 
-            for (const contributor of d2) {
+            for (const contributor of contributors) {
 
                 const el = createAndAppend('li', ulImg, {
                     class: 'element'
