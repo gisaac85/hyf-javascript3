@@ -30,7 +30,7 @@
         "no-console": "off",
         "semi": [
             "warn",
-            "never"
+            "always"
         ],
         "no-var": "warn",
         "prefer-const": "warn",

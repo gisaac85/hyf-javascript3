@@ -61,7 +61,7 @@
         for (let i = 1; i < ele.length; i++) {
             const parts = clTexts[i - 1].split(',');
 
-            ele.options[i].text = parts[1];
+            ele.options[i].text = i + '. ' + parts[1];
             ele.options[i].value = parts[2];
         }
     }
@@ -71,7 +71,7 @@
      */
     function main() {
 
-        const url = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100?json';
+        const url = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
         const root = document.getElementById('root');
 
@@ -125,7 +125,7 @@
      * Renders the <select> element
      * @param {object} DOM element 
      */
-    function manipulateSelect(data) {
+    function manipulateSelect(repos) {
 
         const select = createAndAppend('select', document.getElementById('header'));
 
@@ -139,13 +139,14 @@
             label: '--------------------------------'
         });
 
-
-        data.forEach(repo => {
+        repos.forEach(repo => {
             createAndAppend('option', select, {
                 html: repo.name,
                 value: repo.url
             });
+
         });
+
         sortList(select);
         select.addEventListener('change', function (event) {
 
@@ -249,6 +250,9 @@
                         document.getElementById('container').innerHTML = err.message;
                     });
 
+            })
+            .catch(err => {
+                document.getElementById('container').innerHTML = err.message;
             });
     }
 
