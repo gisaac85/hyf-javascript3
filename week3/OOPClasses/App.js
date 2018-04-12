@@ -13,7 +13,7 @@
                 const url = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
                 this.createAndAppend('h1', root, {
-                    html: 'HYF SPA'
+                    html: 'HYF SPA <br> BY <br> >> OOP ES6 Classes <<'
                 });
 
                 const header = this.createAndAppend('div', root, {

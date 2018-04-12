@@ -77,7 +77,7 @@
             const url = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
             createAndAppend('h1', root, {
-                html: 'HYF SPA'
+                html: 'HYF SPA <br> BY <br> >> Async-await <<'
             });
 
             const header = createAndAppend('div', root, {

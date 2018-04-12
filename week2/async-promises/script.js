@@ -77,7 +77,7 @@
         const root = document.getElementById('root');
 
         createAndAppend('h1', root, {
-            html: 'HYF SPA'
+            html: 'HYF SPA <br> BY <br> >> Promises <<'
         });
 
         const header = createAndAppend('div', root, {
@@ -123,6 +123,8 @@
      * @param {object} DOM element 
      */
     function manipulateSelect(repos) {
+
+        // repos.sort((a, b) => a.name.localeCompare(b.name));
 
         const select = createAndAppend('select', document.getElementById('header'));
 
