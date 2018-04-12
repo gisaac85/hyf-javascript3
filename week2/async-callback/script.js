@@ -75,7 +75,7 @@
         const root = document.getElementById('root');
 
         createAndAppend('h1', root, {
-            html: 'HYF SPA <br> BY <br> >> CallBack Functions <<'
+            html: 'HYF SPA <br> BY <br> >> CallBack <<'
         });
 
         const header = createAndAppend('div', root, {
