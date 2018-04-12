@@ -24,11 +24,11 @@
         });
     }
 
-    /**
-     * Add DOM element with properties
-     * @param {string} Name of DOM child
-     * @param {string} parent Name of DOM parent
-     * @param {object} options Attributes of DOM Child
+    /** 
+     * Creates an element and appends it to a parent
+     * @param {string} name The tag name of the element to create
+     * @param {string} parent The element to which to append the created element
+     * @param {object} options Attributes to assign to the created elements
      */
     function createAndAppend(name, parent, options = {}) {
         const elem = document.createElement(name);
@@ -45,24 +45,25 @@
     }
 
     /**
-     * sort <select> options alphabetically
+     * sort option value in select DOM element
+     * @param {DOM element} element DOM element to sort its option alphabetically
      */
-    function sortList(ele) {
+    function sortList(element) {
         const clTexts = new Array();
-        for (let i = 1; i < ele.length; i++) {
+        for (let i = 1; i < element.length; i++) {
             clTexts[i - 1] =
-                ele.options[i].text.toUpperCase() + "," +
-                ele.options[i].text + "," +
-                ele.options[i].value;
+                element.options[i].text.toUpperCase() + "," +
+                element.options[i].text + "," +
+                element.options[i].value;
         }
 
         clTexts.sort();
 
-        for (let i = 1; i < ele.length; i++) {
+        for (let i = 1; i < element.length; i++) {
             const parts = clTexts[i - 1].split(',');
 
-            ele.options[i].text = i + '. ' + parts[1];
-            ele.options[i].value = parts[2];
+            element.options[i].text = i + '. ' + parts[1];
+            element.options[i].value = parts[2];
         }
     }
 
@@ -110,11 +111,7 @@
         });
 
         fetchJSON(url)
-            .then(data => {
-
-                manipulateSelect(data);
-
-            })
+            .then(manipulateSelect)
             .catch(err => {
                 container.innerHTML = err.message;
             });
@@ -139,22 +136,20 @@
             label: '--------------------------------'
         });
 
-        repos.forEach(repo => {
+        repos.forEach((repo, i) => {
             createAndAppend('option', select, {
-                html: repo.name,
-                value: repo.url
+                html: repos[i].name,
+                value: i
             });
-
         });
 
         sortList(select);
-        select.addEventListener('change', function (event) {
 
+        select.addEventListener('change', () => {
             const index = select.selectedIndex;
             if (index > 0) {
 
-                getRepoInformation(event.target.value);
-                getContributorInformation(event.target.value);
+                getRepoInformation(repos[select.value]);
 
             } else {
                 const ulInfo = document.getElementById('info');
@@ -168,7 +163,7 @@
     }
 
     /**
-     * Return Information of Repo
+     * Render Information of Repo
      * @param {object} DOM element
      */
     function getRepoInformation(data) {
@@ -176,30 +171,24 @@
 
         ulInfo.innerHTML = '';
 
-        fetchJSON(data)
-            .then(data => {
-                createAndAppend('li', ulInfo, {
-                    html: 'Name : ' + "<a href=" + data.html_url + ' target="_blank" >' + data.name + "</a>",
+        createAndAppend('li', ulInfo, {
+            html: 'Name : ' + "<a href=" + data.html_url + ' target="_blank" >' + data.name + "</a>",
 
-                });
+        });
 
-                createAndAppend('li', ulInfo, {
-                    html: 'Description : ' + '<span>' + data.description + '</span>'
-                });
+        createAndAppend('li', ulInfo, {
+            html: 'Description : ' + '<span>' + data.description + '</span>'
+        });
 
-                createAndAppend('li', ulInfo, {
-                    html: 'Forks : ' + '<span>' + data.forks + '</span>'
-                });
+        createAndAppend('li', ulInfo, {
+            html: 'Forks : ' + '<span>' + data.forks + '</span>'
+        });
 
-                createAndAppend('li', ulInfo, {
-                    html: 'Updated : ' + '<span>' + data.updated_at + '</span>'
-                });
+        createAndAppend('li', ulInfo, {
+            html: 'Updated : ' + '<span>' + data.updated_at + '</span>'
+        });
 
-            })
-            .catch(err => {
-                document.getElementById('container').innerHTML = err.message;
-            });
-
+        getContributorInformation(data.contributors_url);
 
     }
 
@@ -207,48 +196,37 @@
      * Return Information of Contributor
      * @param {object} DOM element 
      */
-    function getContributorInformation(data) {
+    function getContributorInformation(url) {
 
         const ulImg = document.getElementById('imgUl');
 
         ulImg.innerHTML = '';
 
-        fetchJSON(data)
+        fetchJSON(url)
 
-            .then(data => {
+            .then(contributors => {
 
-                const url1 = data.contributors_url;
+                for (const contributor of contributors) {
 
-                return fetchJSON(url1)
-
-                    .then(url1 => {
-
-                        for (const contributor of url1) {
-
-                            const el = createAndAppend('li', ulImg, {
-                                class: 'element'
-                            });
-
-                            createAndAppend('img', el, {
-                                src: contributor.avatar_url
-                            });
-
-                            createAndAppend('div', el, {
-                                html: contributor.login,
-                                id: 'contributorName'
-                            });
-
-                            createAndAppend('div', el, {
-                                html: contributor.contributions,
-                                id: 'contributionsCounter'
-                            });
-
-                        }
-
-                    })
-                    .catch(err => {
-                        document.getElementById('container').innerHTML = err.message;
+                    const el = createAndAppend('li', ulImg, {
+                        class: 'element'
                     });
+
+                    createAndAppend('img', el, {
+                        src: contributor.avatar_url
+                    });
+
+                    createAndAppend('div', el, {
+                        html: contributor.login,
+                        id: 'contributorName'
+                    });
+
+                    createAndAppend('div', el, {
+                        html: contributor.contributions,
+                        id: 'contributionsCounter'
+                    });
+
+                }
 
             })
             .catch(err => {

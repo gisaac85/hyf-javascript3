@@ -23,11 +23,11 @@
         });
     }
 
-    /**
-     * Add DOM element with properties
-     * @param {string} Name of DOM child
-     * @param {string} parent Name of DOM parent
-     * @param {object} options Attributes of DOM Child
+    /** 
+     * Creates an element and appends it to a parent
+     * @param {string} name The tag name of the element to create
+     * @param {string} parent The element to which to append the created element
+     * @param {object} options Attributes to assign to the created elements
      */
     function createAndAppend(name, parent, options = {}) {
         const elem = document.createElement(name);
@@ -44,7 +44,8 @@
     }
 
     /**
-     * sort <select> options alphabetically
+     * sort option value in select DOM element
+     * @param {DOM element} element DOM element to sort its option alphabetically
      */
     function sortList(ele) {
         const clTexts = new Array();
@@ -123,7 +124,7 @@
      * Renders the <select> element
      * @param {object} DOM element 
      */
-    function manipulateSelect(data) {
+    function manipulateSelect(repos) {
 
         const select = createAndAppend('select', document.getElementById('header'));
 
@@ -138,22 +139,20 @@
         });
 
 
-        data.forEach(repo => {
+        repos.forEach((repo, i) => {
             createAndAppend('option', select, {
-                html: repo.name,
-                value: repo.url
+                html: repos[i].name,
+                value: i
             });
         });
 
         sortList(select);
 
-        select.addEventListener('change', function (event) {
-
+        select.addEventListener('change', () => {
             const index = select.selectedIndex;
             if (index > 0) {
 
-                getRepoInformation(event.target.value);
-                getContributorInformation(event.target.value);
+                getRepoInformation(repos[select.value]);
 
             } else {
                 const ulInfo = document.getElementById('info');
@@ -167,37 +166,38 @@
     }
 
     /**
-     * Return Information of Repo
+     * Render Information of Repo
      * @param {object} DOM element
      */
-    async function getRepoInformation(data) {
+    function getRepoInformation(data) {
         try {
             const ulInfo = document.getElementById('info');
 
             ulInfo.innerHTML = '';
 
-            const repo = await fetchJSON(data);
+
 
             createAndAppend('li', ulInfo, {
-                html: 'Name : ' + "<a href=" + repo.html_url + ' target="_blank" >' + repo.name + "</a>",
+                html: 'Name : ' + "<a href=" + data.html_url + ' target="_blank" >' + data.name + "</a>",
 
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Description : ' + '<span>' + repo.description + '</span>'
+                html: 'Description : ' + '<span>' + data.description + '</span>'
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Forks : ' + '<span>' + repo.forks + '</span>'
+                html: 'Forks : ' + '<span>' + data.forks + '</span>'
             });
 
             createAndAppend('li', ulInfo, {
-                html: 'Updated : ' + '<span>' + repo.updated_at + '</span>'
+                html: 'Updated : ' + '<span>' + data.updated_at + '</span>'
             });
 
         } catch (err) {
             document.getElementById('container').innerHTML = err.message;
         }
+        getContributorInformation(data.contributors_url);
 
     }
 
@@ -211,11 +211,7 @@
 
             ulImg.innerHTML = '';
 
-            const repo = await fetchJSON(url);
-
-            const contrUrl = repo.contributors_url;
-
-            const contributors = await fetchJSON(contrUrl);
+            const contributors = await fetchJSON(url);
 
             for (const contributor of contributors) {
 

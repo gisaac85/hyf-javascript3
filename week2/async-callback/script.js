@@ -25,7 +25,7 @@
 
     /**
      * Add DOM element with properties
-     * @param {string} Name of DOM child
+     * @param {string} name of DOM child
      * @param {string} parent Name of DOM parent
      * @param {object} options Attributes of DOM Child
      */
@@ -124,7 +124,7 @@
      * Renders the <select> element
      * @param {object} DOM element 
      */
-    function manipulateSelect(data) {
+    function manipulateSelect(repos) {
 
         const select = createAndAppend('select', document.getElementById('header'));
 
@@ -138,50 +138,27 @@
             label: '--------------------------------'
         });
 
-        data.forEach(repo => {
-            createAndAppend('option', select, {
-                html: repo.name,
-                value: repo.url
-            });
 
+        repos.forEach((repo, i) => {
+            createAndAppend('option', select, {
+                html: repos[i].name,
+                value: i
+            });
         });
 
         sortList(select);
-        data.forEach(repo => {
-            createAndAppend('option', select, {
-                html: repo.name,
-                value: repo.url
-            });
-        });
 
-        select.addEventListener('change', function (event) {
-
+        select.addEventListener('change', () => {
             const index = select.selectedIndex;
             if (index > 0) {
-                getRepoInformation(event.target.value);
-                getContributorInformation(event.target.value);
+
+                getRepoInformation(repos[select.value]);
+
             } else {
                 const ulInfo = document.getElementById('info');
                 ulInfo.innerHTML = '';
                 const ulImg = document.getElementById('imgUl');
                 ulImg.innerHTML = '';
-
-
-            }
-
-        });
-
-        document.querySelectorAll('li').addEventListener('click', function (event) {
-            const index = select.selectedIndex;
-            if (index > 0) {
-
-                getContributorInformation(event.target.value);
-            } else {
-
-                const ulImg = document.getElementById('imgUl');
-                ulImg.innerHTML = '';
-
-
             }
 
         });
@@ -189,39 +166,33 @@
     }
 
     /**
-     * Return Information of Repo
+     * Render Information of Repo
      * @param {object} DOM element
      */
-    function getRepoInformation(data) {
+    function getRepoInformation(rep) {
         const ulInfo = document.getElementById('info');
 
         ulInfo.innerHTML = '';
 
-        fetchJSON(data, (error, rep) => {
-            if (error !== null) {
-                document.getElementById('container').innerHTML = error.message;
-            } else {
+        createAndAppend('li', ulInfo, {
+            html: 'Name : ' + "<a href=" + rep.html_url + ' target="_blank" >' + rep.name + "</a>",
 
-                createAndAppend('li', ulInfo, {
-                    html: 'Name : ' + "<a href=" + rep.html_url + ' target="_blank" >' + rep.name + "</a>",
-
-                });
-
-                createAndAppend('li', ulInfo, {
-                    html: 'Description : ' + '<span>' + rep.description + '</span>'
-                });
-
-                createAndAppend('li', ulInfo, {
-                    html: 'Forks : ' + '<span>' + rep.forks + '</span>'
-                });
-
-                createAndAppend('li', ulInfo, {
-                    html: 'Updated : ' + '<span>' + rep.updated_at + '</span>'
-                });
-
-
-            }
         });
+
+        createAndAppend('li', ulInfo, {
+            html: 'Description : ' + '<span>' + rep.description + '</span>'
+        });
+
+        createAndAppend('li', ulInfo, {
+            html: 'Forks : ' + '<span>' + rep.forks + '</span>'
+        });
+
+        createAndAppend('li', ulInfo, {
+            html: 'Updated : ' + '<span>' + rep.updated_at + '</span>'
+        });
+
+
+        getContributorInformation(rep.contributors_url);
 
 
     }
@@ -241,38 +212,30 @@
             if (error !== null) {
                 document.getElementById('container').innerHTML = error.message;
             } else {
-                const url1 = rep.contributors_url;
 
-                fetchJSON(url1, (error, contributors) => {
+                const contributors = rep;
 
-                    if (error !== null) {
-                        document.getElementById('container').innerHTML = error.message;
+                for (const contributor of contributors) {
 
-                    } else {
+                    const el = createAndAppend('li', ulImg, {
+                        class: 'element',
+                        id: 'element'
+                    });
 
-                        for (const contributor of contributors) {
+                    createAndAppend('img', el, {
+                        src: contributor.avatar_url
+                    });
 
-                            const el = createAndAppend('li', ulImg, {
-                                class: 'element',
-                                id: 'element'
-                            });
+                    createAndAppend('div', el, {
+                        html: contributor.login,
+                        id: 'contributorName'
+                    });
 
-                            createAndAppend('img', el, {
-                                src: contributor.avatar_url
-                            });
-
-                            createAndAppend('div', el, {
-                                html: contributor.login,
-                                id: 'contributorName'
-                            });
-
-                            createAndAppend('div', el, {
-                                html: contributor.contributions,
-                                id: 'contributionsCounter'
-                            });
-                        }
-                    }
-                });
+                    createAndAppend('div', el, {
+                        html: contributor.contributions,
+                        id: 'contributionsCounter'
+                    });
+                }
             }
         });
     }
