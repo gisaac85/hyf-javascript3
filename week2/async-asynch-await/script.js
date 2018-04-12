@@ -61,7 +61,7 @@
         for (let i = 1; i < ele.length; i++) {
             const parts = clTexts[i - 1].split(',');
 
-            ele.options[i].text = parts[1];
+            ele.options[i].text = i + '. ' + parts[1];
             ele.options[i].value = parts[2];
         }
     }
@@ -74,7 +74,7 @@
 
             const root = document.getElementById('root');
 
-            const url = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100?json';
+            const url = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
             createAndAppend('h1', root, {
                 html: 'HYF SPA'
@@ -174,8 +174,6 @@
             const ulInfo = document.getElementById('info');
 
             ulInfo.innerHTML = '';
-
-
 
             createAndAppend('li', ulInfo, {
                 html: 'Name : ' + "<a href=" + data.html_url + ' target="_blank" >' + data.name + "</a>",
