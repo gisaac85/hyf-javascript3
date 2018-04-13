@@ -58,6 +58,8 @@
 
         manipulateSelect(repos) {
 
+            repos.sort((a, b) => a.name.localeCompare(b.name));
+
             const select = this.createAndAppend('select', document.getElementById('header'));
 
             this.createAndAppend('option', select, {
@@ -76,8 +78,6 @@
                     value: i
                 });
             });
-
-            this.sortList(select);
 
             select.addEventListener('change', () => {
                 const index = select.selectedIndex;

@@ -44,29 +44,6 @@
     }
 
     /**
-     * sort option value in select DOM element
-     * @param {DOM element} element DOM element to sort its option alphabetically
-     */
-    function sortList(ele) {
-        const clTexts = new Array();
-        for (let i = 1; i < ele.length; i++) {
-            clTexts[i - 1] =
-                ele.options[i].text.toUpperCase() + "," +
-                ele.options[i].text + "," +
-                ele.options[i].value;
-        }
-
-        clTexts.sort();
-
-        for (let i = 1; i < ele.length; i++) {
-            const parts = clTexts[i - 1].split(',');
-
-            ele.options[i].text = i + '. ' + parts[1];
-            ele.options[i].value = parts[2];
-        }
-    }
-
-    /**
      * Main function 
      */
     async function main() {
@@ -126,6 +103,8 @@
      */
     function manipulateSelect(repos) {
 
+        repos.sort((a, b) => a.name.localeCompare(b.name));
+
         const select = createAndAppend('select', document.getElementById('header'));
 
         createAndAppend('option', select, {
@@ -138,15 +117,12 @@
             label: '--------------------------------'
         });
 
-
         repos.forEach((repo, i) => {
             createAndAppend('option', select, {
                 html: repos[i].name,
                 value: i
             });
         });
-
-        sortList(select);
 
         select.addEventListener('change', () => {
             const index = select.selectedIndex;
