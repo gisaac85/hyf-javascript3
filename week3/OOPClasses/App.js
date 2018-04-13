@@ -82,12 +82,12 @@
             select.addEventListener('change', () => {
                 const index = select.selectedIndex;
                 if (index > 0) {
-                    const r = new Repository(repos[select.value]);
-                    r.render();
-                    const repoContr = r.fetchContributors(repos[select.value].contributors_url)
+                    const repo = new Repository(repos[select.value]);
+                    repo.render();
+                    const repoContr = repo.fetchContributors(repos[select.value].contributors_url)
                         .then(contributors => {
-                            const c = new Contributor(contributors);
-                            c.render(contributors);
+                            const contributor = new Contributor(contributors);
+                            contributor.render();
                         });
 
                 } else {
@@ -100,7 +100,6 @@
             });
 
         }
-
 
         fetchJSON(url) {
             return new Promise((resolve, reject) => {
