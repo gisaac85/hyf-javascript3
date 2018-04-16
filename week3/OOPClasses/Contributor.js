@@ -12,38 +12,33 @@ class Contributor extends View {
      * @param {HTML element} parent The parent element in which to render the contributor.
      * info.
      */
-    async render() {
-        try {
+    render() {
 
-            const ulImg = document.getElementById('imgUl');
+        const ulImg = document.getElementById('imgUl');
 
-            ulImg.innerHTML = '';
+        ulImg.innerHTML = '';
 
-            this._data.forEach(contributor => {
+        this._data.forEach(contributor => {
 
-                const el = this.createAndAppend('li', ulImg, {
-                    class: 'element'
-                });
-
-                this.createAndAppend('img', el, {
-                    src: contributor.avatar_url
-                });
-
-                this.createAndAppend('div', el, {
-                    html: contributor.login,
-                    id: 'contributorName'
-                });
-
-                this.createAndAppend('div', el, {
-                    html: contributor.contributions,
-                    id: 'contributionsCounter'
-                });
-
+            const el = this.createAndAppend('li', ulImg, {
+                class: 'element'
             });
 
-        } catch (err) {
-            document.getElementById('container').innerHTML = err.message;
-        }
+            this.createAndAppend('img', el, {
+                src: contributor.avatar_url
+            });
+
+            this.createAndAppend('div', el, {
+                html: contributor.login,
+                id: 'contributorName'
+            });
+
+            this.createAndAppend('div', el, {
+                html: contributor.contributions,
+                id: 'contributionsCounter'
+            });
+
+        });
 
     }
 }

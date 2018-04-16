@@ -23,26 +23,25 @@ class View {
     }
 
     /**
-     * sort option value in select DOM element
-     * @param {DOM element} element DOM element to sort its option alphabetically
+     * Fetches JSON data asynchronously
+     * @param {string} url The url to fetch
      */
-    sortList(ele) {
-        const clTexts = new Array();
-        for (let i = 1; i < ele.length; i++) {
-            clTexts[i - 1] =
-                ele.options[i].text.toUpperCase() + "," +
-                ele.options[i].text + "," +
-                ele.options[i].value;
-        }
-
-        clTexts.sort();
-
-        for (let i = 1; i < ele.length; i++) {
-            const parts = clTexts[i - 1].split(',');
-
-            ele.options[i].text = i + '. ' + parts[1];
-            ele.options[i].value = parts[2];
-        }
+    fetchJSON(url) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.responseType = 'json';
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status < 400) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(new Error(`Network error: ${xhr.status} - ${xhr.statusText}`));
+                    }
+                }
+            };
+            xhr.send();
+        });
     }
 
 }
