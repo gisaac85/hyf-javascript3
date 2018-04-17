@@ -74,7 +74,7 @@
                 if (index > 0) {
                     const repo = new Repository(repos[select.value]);
                     repo.render();
-                    repo.fetchContributors(repos[select.value].contributors_url)
+                    repo.fetchContributors(repos[select.value])
                         .then(contributors => {
                             const contributor = new Contributor(contributors);
                             contributor.render();

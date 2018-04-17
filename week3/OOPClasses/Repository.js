@@ -34,8 +34,8 @@ class Repository extends View {
 
     }
 
-    fetchContributors(url) {
-        return this.fetchJSON(url);
+    fetchContributors() {
+        return this.fetchJSON(this._data.contributors_url);
     }
 
 }
